@@ -6,7 +6,6 @@ input_csv = 'input.csv'
 # Lese die CSV-Datei in einen DataFrame
 df = pd.read_csv(input_csv)
 
-# Erstelle DataFrames für jeden Bucket
 sad_playlist = pd.DataFrame(columns=df.columns)
 upbeat_dance = pd.DataFrame(columns=df.columns)
 good_mood = pd.DataFrame(columns=df.columns)
