@@ -14,8 +14,8 @@ def main():
 
     uploaded_file= st.file_uploader("Choose the input csv here", type=["csv"])
 
-    no_artists_per_playlist = st.number_input("How many artists per playlist max?", value=1, step=1, min_value = 1)
-    no_original_song_per_playlist = st.number_input("How many original songs per playlist max?", value = 1, step=1, min_value = 1)
+    no_artists_per_playlist = st.number_input("How many artists per playlist max?", value=10, step=1, min_value = 1)
+    no_original_song_per_playlist = st.number_input("How many original songs per playlist max?", value = 3, step=1, min_value = 1)
 
     if uploaded_file is not None:
         
