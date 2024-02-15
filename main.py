@@ -10,10 +10,13 @@ def process_csv(file, mult):
     return df
 
 def main():
-    st.title("CSV Datei bearbeiten")
+    st.title("Spotify Playlist Creation")
 
-    uploaded_file = st.file_uploader("Datei auswählen", type=["csv"])
-    mult = st.number_input("Fehler 1:", value=0, step=1)
+    uploaded_file= st.file_uploader("Choose the input csv here", type=["csv"])
+
+    no_artists_per_playlist = st.number_input("How many artists per playlist max?", value=1, step=1, min_value = 1)
+    no_original_song_per_playlist = st.number_input("How many original songs per playlist max?", value = 1, step=1, min_value = 1)
+
     if uploaded_file is not None:
         
         df = process_csv(uploaded_file, mult)
