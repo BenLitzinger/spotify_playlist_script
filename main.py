@@ -1,6 +1,34 @@
 import streamlit as st
 import pandas as pd
 import io
+import hmac
+
+def check_password():
+    """Returns `True` if the user had the correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if hmac.compare_digest(st.session_state["password"], st.secrets["password"]):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the password.
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show input for password.
+    st.text_input(
+        "Password", type="password", on_change=password_entered, key="password"
+    )
+    if "password_correct" in st.session_state:
+        st.error("😕 Password incorrect")
+    return False
+
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
 
 def process_csv(file):
     df = pd.read_csv(file)
@@ -9,7 +37,8 @@ def process_csv(file):
     
     return df
 
-def main():
+def website():
+
     st.title("Spotify Playlist Creation")
 
     top_col1, top_col2 = st.columns(2)
@@ -50,6 +79,10 @@ def main():
     if st.button("Look at filler songs"):
         filler_df = pd.read_csv("filler.csv")
         st.dataframe(filler_df)
+
+def main():
+    check_password()
+    website()
 
 if __name__ == "__main__":
     main()
